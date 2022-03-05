@@ -1,38 +1,38 @@
-version: '3.9'
+version: '3'
 
 services:
   nginx:
     build: requirements/nginx
     restart: always
-    depends_on:
-      - wordpress
+    # depends_on:
+    #   - wordpress
     ports:
       - "443:443"
       - "80"
     networks:
       - docker-network
 
-  mariadb:
-    build: requirements/mariadb
-    restart: always
-    networks:
-      - docker-network
-    volumes:
-      - DataVolume:/var/lib/mysql
+  # mariadb:
+  #   build: requirements/mariadb
+  #   restart: always
+  #   networks:
+  #     - docker-network
+  #   volumes:
+  #     - DataVolume:/var/lib/mysql
 
-  wordpress:
-    build: requirements/wordpress
-    restart: always
-    networks:
-      - docker-network
-    depends_on:
-      - mariadb
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
-      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
-    container_name: wordpress
+  # wordpress:
+  #   build: requirements/wordpress
+  #   restart: always
+  #   networks:
+  #     - docker-network
+  #   depends_on:
+  #     - mariadb
+  #   environment:
+  #     WORDPRESS_DB_HOST: db
+  #     WORDPRESS_DB_USER: ${MYSQL_USER}
+  #     WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+  #     WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+  #   container_name: wordpress
 
 volumes:
   WordPressVolume:
