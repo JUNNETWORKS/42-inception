@@ -12,13 +12,17 @@ services:
     networks:
       - docker-network
 
-  # mariadb:
-  #   build: requirements/mariadb
-  #   restart: always
-  #   networks:
-  #     - docker-network
-  #   volumes:
-  #     - DataVolume:/var/lib/mysql
+  mariadb:
+    build: requirements/mariadb
+    restart: always
+    networks:
+      - docker-network
+    volumes:
+      - DataVolume:/var/lib/mysql
+    #TODO: あとで消す。 デバッグ用
+    # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
+    ports:
+      - "3306:3306"
 
   # wordpress:
   #   build: requirements/wordpress
