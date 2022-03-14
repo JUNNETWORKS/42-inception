@@ -18,11 +18,16 @@ services:
     networks:
       - docker-network
     volumes:
-      - DataVolume:/var/lib/mysql
+      - ~/Desktop/inception/mariadb:/var/lib/mysql
     #TODO: あとで消す。 デバッグ用
     # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PWD:   ${MYSQL_ROOT_PWD}
+      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
+      WP_DATABASE_USR:  ${WP_DATABASE_USER}
+      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
 
   # wordpress:
   #   build: requirements/wordpress
@@ -37,10 +42,6 @@ services:
   #     WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
   #     WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
   #   container_name: wordpress
-
-volumes:
-  WordPressVolume:
-  DataVolume:
 
 networks:
   docker-network:
