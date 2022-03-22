@@ -4,11 +4,11 @@ services:
   nginx:
     build: requirements/nginx
     restart: always
-    # depends_on:
-    #   - wordpress
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
-      - "80"
+      - "80:80"
     networks:
       - docker-network
 
@@ -19,7 +19,7 @@ services:
       - docker-network
     volumes:
       - ~/Desktop/inception/mariadb:/var/lib/mysql
-    #TODO: あとで消す。 デバッグ用
+    #TODO: あとでexposeに書き換える。 デバッグ用
     # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
     ports:
       - "3306:3306"
@@ -29,19 +29,20 @@ services:
       WP_DATABASE_USR:  ${WP_DATABASE_USER}
       WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
 
-  # wordpress:
-  #   build: requirements/wordpress
-  #   restart: always
-  #   networks:
-  #     - docker-network
-  #   depends_on:
-  #     - mariadb
-  #   environment:
-  #     WORDPRESS_DB_HOST: db
-  #     WORDPRESS_DB_USER: ${MYSQL_USER}
-  #     WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
-  #     WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
-  #   container_name: wordpress
+  wordpress:
+    build: requirements/wordpress
+    restart: always
+    networks:
+      - docker-network
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    environment:
+      DB_HOST: mariadb
+      DB_USER: ${WP_DATABASE_USER}
+      DB_PASSWORD: ${WP_DATABASE_PWD}
+      DB_NAME: ${WP_DATABASE_NAME}
 
 networks:
   docker-network:
