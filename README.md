@@ -10,6 +10,8 @@ nginx のDockerコンテナ色々試してるなう
 docker image build -t=nginx_test srcs/requirements/nginx && docker container run --rm -it -p 8080:80 -p 443:443 nginx_test bash ; docker image rm nginx_test
 ```
 
+WordPressのインストール画面ではなくすでにブログとして立ち上がっている画面で起動する必要がある。wpcliを使うとできるらしい。
+
 ## 参考のリンク
 
 - [MySQL、localhostだとポート指定オプション効かないってマジですか。。](https://su-kun1899.hatenablog.com/entry/2016/10/27/005410)
