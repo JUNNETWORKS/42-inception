@@ -12,6 +12,11 @@ docker image build -t=nginx_test srcs/requirements/nginx && docker container run
 
 WordPressのインストール画面ではなくすでにブログとして立ち上がっている画面で起動する必要がある。wpcliを使うとできるらしい。
 
+wordpress コンテナの中からmariadbにつなぐ
+`mysql --host=$DB_HOST --user=$DB_USER --password=$DB_PASSWORD $DB_NAME`
+
+Show all users `SELECT User, Host, Password FROM mysql.user;`
+
 ## 参考のリンク
 
 - [MySQL、localhostだとポート指定オプション効かないってマジですか。。](https://su-kun1899.hatenablog.com/entry/2016/10/27/005410)

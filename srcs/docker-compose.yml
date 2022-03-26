@@ -24,10 +24,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PWD:   ${MYSQL_ROOT_PWD}
+      MYSQL_ROOT_PASSWORD:   ${MYSQL_ROOT_PASSWORD}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR:  ${WP_DATABASE_USER}
-      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
+      WP_DATABASE_USER:  ${WP_DATABASE_USER}
+      WP_DATABASE_PASSWORD:  ${WP_DATABASE_PASSWORD}
 
   wordpress:
     build: requirements/wordpress
@@ -41,7 +41,7 @@ services:
     environment:
       DB_HOST: mariadb
       DB_USER: ${WP_DATABASE_USER}
-      DB_PASSWORD: ${WP_DATABASE_PWD}
+      DB_PASSWORD: ${WP_DATABASE_PASSWORD}
       DB_NAME: ${WP_DATABASE_NAME}
 
 networks:
