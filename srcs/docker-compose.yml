@@ -11,6 +11,8 @@ services:
       - "80:80"
     networks:
       - docker-network
+    volumes:
+      - wordpress_data:/var/www/html/wordpress
 
   mariadb:
     build: requirements/mariadb
@@ -18,7 +20,7 @@ services:
     networks:
       - docker-network
     volumes:
-      - ~/Desktop/inception/mariadb:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     #TODO: あとでexposeに書き換える。 デバッグ用
     # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
     ports:
@@ -38,6 +40,8 @@ services:
       - mariadb
     ports:
       - "9000:9000"
+    volumes:
+      - wordpress_data:/var/www/html/wordpress
     environment:
       DB_HOST: mariadb
       DB_USER: ${WP_DATABASE_USER}
@@ -46,3 +50,7 @@ services:
 
 networks:
   docker-network:
+
+volumes:
+  wordpress_data: {}
+  mariadb_data: {}
