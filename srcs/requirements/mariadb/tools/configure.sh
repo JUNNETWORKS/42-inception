@@ -8,7 +8,7 @@ docker_temp_server_start() {
   # so that it won't try to fill in a password file when it hasn't been set yet
   local i
   for i in {30..0}; do
-    if mysql --protocol=socket -uroot -hlocalhost --database=mysql -e 'SELECT 1' &> /dev/null; then
+    if MYSQL_PWD=$MYSQL_ROOT_PASSWORD mysql --protocol=socket -uroot -hlocalhost --database=mysql -e 'SELECT 1' &> /dev/null; then
       break
     fi
     sleep 1
@@ -37,7 +37,9 @@ FLUSH PRIVILEGES;
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
-CREATE DATABASE $WP_DATABASE_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+DROP DATABASE IF EXISTS $WP_DATABASE_NAME;
+CREATE DATABASE $WP_DATABASE_NAME CHARACTER SET utf8;
 CREATE USER '$WP_DATABASE_USER'@'%' IDENTIFIED by '$WP_DATABASE_PASSWORD';
 GRANT ALL PRIVILEGES ON $WP_DATABASE_NAME.* TO '$WP_DATABASE_USER'@'%';
 FLUSH PRIVILEGES;
