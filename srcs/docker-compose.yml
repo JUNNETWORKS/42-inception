@@ -8,7 +8,6 @@ services:
       - wordpress
     ports:
       - "443:443"
-      - "80:80"
     networks:
       - docker-network
     volumes:
@@ -23,8 +22,8 @@ services:
       - mariadb_data:/var/lib/mysql
     #TODO: あとでexposeに書き換える。 デバッグ用
     # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
-    ports:
-      - "3306:3306"
+    expose:
+      - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       WP_DATABASE_NAME: ${WP_DATABASE_NAME}
@@ -39,7 +38,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "9000:9000"
+      - "9000"
     volumes:
       - wordpress_data:/var/www/html/wordpress
     environment:
