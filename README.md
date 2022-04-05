@@ -4,18 +4,14 @@ Inception is one of the projects in 42 cursus.
 
 ## メモ
 
-nginx のDockerコンテナ色々試してるなう
-
-```bash
-docker image build -t=nginx_test srcs/requirements/nginx && docker container run --rm -it -p 8080:80 -p 443:443 nginx_test bash ; docker image rm nginx_test
-```
-
-WordPressのインストール画面ではなくすでにブログとして立ち上がっている画面で起動する必要がある。wpcliを使うとできるらしい。
-
 wordpress コンテナの中からmariadbにつなぐ
-`mysql --host=$DB_HOST --user=$DB_USER --password=$DB_PASSWORD $DB_NAME`
+`mysql --host=$WP_DB_HOST --user=$WP_DB_USER --password=$WP_DB_PASSWORD $WP_DB_NAME`
 
 Show all users `SELECT User, Host, Password FROM mysql.user;`
+
+Remove volume directories `sudo rm -rf /home/jtanaka`
+
+login url: https://jtanaka.42.fr/wp-login.php
 
 ## 参考のリンク
 

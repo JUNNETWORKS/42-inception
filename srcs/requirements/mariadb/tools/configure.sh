@@ -47,7 +47,7 @@ EOF
 
   # execute init.sql
   echo "execute ${TEMP_SQL_PATH}"
-  mysql --protocol=socket -uroot -hlocalhost < $TEMP_SQL_PATH
+  MYSQL_PWD=$MYSQL_ROOT_PASSWORD mysql --protocol=socket -uroot -hlocalhost < $TEMP_SQL_PATH
   rm -f $TEMP_SQL_PATH
 }
 

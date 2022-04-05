@@ -10,6 +10,7 @@ RUN apt-get update \
   php-fpm \
   php-mysqlnd \
   mariadb-client \
+  sendmail \
   curl \
   vim
 
