@@ -1,5 +1,9 @@
 #!/bin/bash
 
+is_wpuser_created() {
+  mysql --protocol=socket -u"$WP_DATABASE_USER" -p"$WP_DATABASE_PASSWORD" -hlocalhost --database="$WP_DATABASE_NAME" -e 'SELECT 1' &> /dev/null
+}
+
 # Do a temporary startup of the MariaDB server, for init purposes
 docker_temp_server_start() {
   "$@" &
@@ -66,7 +70,9 @@ _main() {
   docker_temp_server_start "$@"
   echo "Temporary server started."
 
-  configure_wpuser
+  if ! is_wpuser_created; then
+    configure_wpuser
+  fi
 
   echo "Stopping temporary server"
   docker_temp_server_stop

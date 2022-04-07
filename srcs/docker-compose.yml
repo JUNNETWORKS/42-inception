@@ -34,7 +34,7 @@ services:
       WP_DATABASE_USER: ${WP_DATABASE_USER}
       WP_DATABASE_PASSWORD: ${WP_DATABASE_PASSWORD}
     healthcheck:
-      test: MYSQL_PWD=$MYSQL_ROOT_PASSWORD mysql --protocol=tcp -uroot -hlocalhost --database=mysql -e 'SELECT 1' &> /dev/null
+      test: mysql --protocol=tcp -u"$WP_DATABASE_USER" -p"$WP_DATABASE_PASSWORD" -hlocalhost --database="$WP_DATABASE_NAME" -e 'SELECT 1' &> /dev/null
       interval: 5s
       timeout: 10s
       retries: 10
