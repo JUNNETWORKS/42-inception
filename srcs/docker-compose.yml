@@ -75,15 +75,18 @@ services:
 
 networks:
   docker-network:
+    name: docker-network
 
 volumes:
   wordpress_data:
+    name: wordpress_data
     driver: local
     driver_opts:
       type: none
       o: bind
       device: /home/jtanaka/data/wordpress
   mariadb_data:
+    name: mariadb_data
     driver: local
     driver_opts:
       type: none
