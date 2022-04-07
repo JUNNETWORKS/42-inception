@@ -8,8 +8,11 @@ RUN apt-get update \
   && apt-get install -y \
   php \
   php-fpm \
+  php-mbstring \
+  php-pdo \
   php-mysqlnd \
   mariadb-client \
+  sendmail \
   curl \
   vim
 
