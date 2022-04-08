@@ -24,8 +24,6 @@ services:
       - docker-network
     volumes:
       - mariadb_data:/var/lib/mysql
-    #TODO: あとでexposeに書き換える。 デバッグ用
-    # MySQL のポート 3306 を開けてホストから繋げられるか確かめてみる
     expose:
       - "3306"
     environment:
